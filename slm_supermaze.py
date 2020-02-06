@@ -140,7 +140,7 @@ class Game:
         self.state = GameState.SETUP
 
         # vado a leggere il dizionario corrispondente
-        # al numero di livell o corrente facendo in modo
+        # al numero di livello corrente facendo in modo
         # che se il numero di livello richiesto non esiste
         # carico quello più vicino a quello richiesto
         if self.levelIndex>= len(levels):
@@ -150,9 +150,10 @@ class Game:
 
         level = levels[self.levelIndex]
 
-        # dimensione del labirinto
-        self.ncols = level.get("ncols", 20)
+        # dimensione del labirinto (numero di righe e di colonne)
         self.nrows = level.get("nrows", 20)
+        self.ncols = level.get("ncols", 20)
+
 
         # fattore di scala del labirinto
         # attenzione che, fattori di scala molto
@@ -164,28 +165,37 @@ class Game:
         self.maze_density = level.get("maze_density", Game.MAZE_DENSITY)
         self.maze_complexity = level.get("maze_complexity", Game.MAZE_COMPLEXITY)
 
-
+        # colore delle monete
         self.coin_color = level.get("coin_color", Game.YELLOW)
 
+        # tempo a disposizione per completare il livello
         self.time = level.get("time", 240)
         self.clockTime = level.get("clock", 80)
 
+        # numero di nemici
         self.numEnemies =  level.get("num_enemies", 0)
-        self.numTimeReloaders = level.get("time_reloadeoters", 0)
 
+        # numero di ricaricatori temporali
+        self.numTimeReloaders = level.get("time_reloaders", 0)
+
+        # numero di bombe "distruggi monete"
         self.bonus_bombs = level.get("bombs", [])
+        # numero di bombe "distruggi muri"
         self.bonus_wall_bombs = level.get("wall_bombs", [])
+        # numero di bombe "distruggi nemici"
         self.bonus_enemy_killers = level.get("enemy_killers", [])
+        # numero di pizze che rendono i nemici golosi di monete
         self.bonus_greedy_enemies = level.get("greedy_enemies", 0)
+        # numero di portali (teletrasporto del giocatore)
         self.bonus_portals = level.get("portals", 0)
 
-        # proiettili a disposizione del player per un certo periodo di tempo
+        # proiettili a disposizione del giocatore per un certo periodo di tempo
         self.bonus_player_bullets = level.get("player_bullets", [])
 
-        #numero di nemici che rendono player invisibile per un certo periodo di tempo
+        #numero di bonus che rendono il giocatore invisibile per un certo periodo di tempo
         self.bonus_invisibility_players = level.get("invisibility_players", [])
 
-        # numero di shooters (nemici che sparano contro il giocatore
+        # numero di shooters (nemici che sparano contro il giocatore)
         self.numShooters = level.get("num_shooters" , [])
 
 
@@ -218,6 +228,37 @@ class Game:
 
         # suono del levello completato
         self.sound_completed_level = pygame.mixer.Sound("Effects/sound_effects/level_completed.wav")
+
+        #
+        # IMMAGINI DEGLI SPRITE DI GIOCO: CONFIGURABILE DA FILE DI CONFIGURAZIONE!!
+        #
+
+        # immagine delle pareti del labirinto
+        self.wall_filename = level.get("wall", "Backgrounds/Dim/Boards.jpg")
+
+        # immagine dei nemici del labirinto
+        self.enemies_filename = level.get("enemies", "Sprites/Animals/duck.png")
+
+        # immagine dei nemici del labirinto che possono anche sparare
+        # di default gli shooters hanno lo stesso aspetto dei nemici normali
+        self.shooters_filename = level.get("shooters", self.enemies_filename)
+
+        # immagine della bomba distruggi monete
+        self.bomb_filename = level.get("bomb", "Sprites/bomb_bonus.png")
+        # immagine della bomba distruggi muri
+        self.wall_bomb_filename = level.get("wall_bomb", "Sprites/bomb_wall_bonus.png")
+
+        self.time_reloaders_filename = level.get("time_reloader", "Sprites/clessidra.png")
+        self.enemy_killers_filename = level.get("enemy_killer", "Sprites/skull2.png")
+        self.greedy_enemies_filename = level.get("greedy_enemy", "Sprites/pizza.png")
+        self.portals_filename = level.get("portal", "Sprites/CrawlStone/portal.png")
+        self.invisibility_players_filename = level.get("invisibility_player", "Sprites/CrawlStone/wizard_hat_2.png")
+
+        # lo sprite che fornisce i proiettili ha la stessa immagine dei proiettili
+        self.player_bullets_filename = level.get("player_bullet", "Sprites/CrawlStone/apple.png")
+        self.bonus_player_bullets_filename = self.player_bullets_filename
+
+        self.shooters_bullets_filename = level.get("shooter_bullet", "Sprites/CrawlStone/apple.png")
 
         #
         #  GRUPPI DI SPRITES
@@ -305,30 +346,7 @@ class Game:
         )
 
 
-        #
-        # IMMAGINI DEGLI SPRITE
-        #
 
-        self.wall_filename = level.get("wall", "Backgrounds/Dim/Boards.jpg")
-
-        self.enemies_filename = level.get("enemies", "Sprites/Animals/duck.png")
-        # di default gli shooters hanno lo stesso aspetto dei nemici normali
-        self.shooters_filename = level.get("shooters", self.enemies_filename)
-
-        self.bomb_filename = level.get("bomb", "Sprites/bomb_bonus.png")
-        self.wall_bomb_filename = level.get("wall_bomb", "Sprites/bomb_wall_bonus.png")
-
-        self.time_reloaders_filename = level.get("time_reloader", "Sprites/clessidra.png")
-        self.enemy_killers_filename = level.get("enemy_killer", "Sprites/skull2.png")
-        self.greedy_enemies_filename = level.get("greedy_enemy", "Sprites/pizza.png")
-        self.portals_filename= level.get("portal","Sprites/CrawlStone/portal.png")
-        self.invisibility_players_filename = level.get("invisibility_player","Sprites/CrawlStone/wizard_hat_2.png")
-
-        # lo sprite che fornisce i proiettili ha la stessa immagine dei proiettili
-        self.player_bullets_filename = level.get("player_bullet","Sprites/CrawlStone/apple.png")
-        self.bonus_player_bullets_filename = self.player_bullets_filename
-
-        self.shooters_bullets_filename = level.get("shooter_bullet","Sprites/CrawlStone/apple.png")
 
         #
         # CREAZIONE DEGLI SPRITES
@@ -403,7 +421,7 @@ class Game:
 
         # a inizio livello si dà tempo di 5 secondi al Giocatore per divincolarsi
         # da eventuali nemici che compaiono negli immediati dintorni
-        # della posizione in cui si viene a trovare (per caso)
+        # della posizione (casuale) in cui si viene a trovare
         # il giocatore a inizio livello
         self.player.sprite.addPower(PlayerPowers.INVISIBILITY, (self.time,5))
 

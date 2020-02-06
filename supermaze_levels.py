@@ -10,11 +10,13 @@ levels = [
 
     # livello per testare le funzionalità di gioco
     {
-        "ncols" : 10,
-        "nrows" : 10,
+        "ncols" : 40,
+        "nrows" : 20,
         "greedy_enemies" : 1,
         "player_bullets" : [(2,20)],
         "invisibility_players" : [(3,20)],
+        "maze_density": 0.1,
+        "maze_complexity": 0.8
       },
 
 
