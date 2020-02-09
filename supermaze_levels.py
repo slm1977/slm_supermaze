@@ -10,27 +10,29 @@ levels = [
 
     # livello per testare le funzionalità di gioco
     {
-        "ncols" : 40,
-        "nrows" : 20,
+        "ncols" : 11,
+        "nrows" : 11,
         "greedy_enemies" : 1,
         "player_bullets" : [(2,20)],
         "invisibility_players" : [(3,20)],
         "maze_density": 0.1,
-        "maze_complexity": 0.8
+        "maze_complexity": 0.8,
+        "background_image" : "Backgrounds/ydt89/Background_01.png"
       },
 
 
     # livello 1
     {
         "time" : 100,
-        "ncols" : 10,
-        "nrows" : 10,
+        "ncols" : 11,
+        "nrows" : 11,
         "scale" : 30,
         "clock" : 80,
         "enemies" : "Sprites/Animals/bear.png",
         "coin_color" : (255,255,255),
         "maze_density": 0.75,
-        "maze_complexity": 0.5
+        "maze_complexity": 0.5,
+        "background_image" : "Backgrounds/ydt89/Background_02.png"
 
     },
 
@@ -45,7 +47,8 @@ levels = [
         "time_reloaders" : 1,
         "coin_color" : (200,20,222),
         "maze_density": 0.75,
-        "maze_complexity": 0.5
+        "maze_complexity": 0.5,
+        "background_image" : "Backgrounds/ydt89/Background_03.png"
 
     },
 
@@ -60,6 +63,7 @@ levels = [
         "clock" : 80,
         "music" : "./Music/Soundimage/Funky-Gameplay_Looping.ogg",
         "wall" : "./Backgrounds/Dim/Chimeny.jpg",
+        "background_image" : "Backgrounds/ydt89/Background_05.png"
     },
 
     # livello 4

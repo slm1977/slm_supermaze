@@ -154,11 +154,25 @@ class Game:
         self.nrows = level.get("nrows", 20)
         self.ncols = level.get("ncols", 20)
 
+        # l'algoritmo di generazione del labirinto supporta solo un numero di
+        # righe e di colonne dispari, quindi approssimiamo le dimensioni ai
+        # valori dispari più vicini
+        if self.nrows % 2 == 0:
+            self.nrows+=1
+        if self.ncols % 2 == 0:
+            self.ncols+=1
+
 
         # fattore di scala del labirinto
         # attenzione che, fattori di scala molto
         # grandi, rallentano le prestazioni di gioco
         self.scale = level.get("scale", 30)
+
+        background_image_filename = level.get("background_image", None)
+        if background_image_filename!=None:
+            self.background_image = pygame.image.load(background_image_filename).convert()
+        else:
+            self.background_image = None
 
         # parametri usati dall'algoritmo di generazione del labirinto
         # si veda https://en.wikipedia.org/wiki/Maze_generation_algorithm
@@ -393,7 +407,7 @@ class Game:
         self.drawMaze()
 
         self.scrollSurface = self.mazeSurf.copy()
-        self.scrollSurface.fill((0, 0, 0))
+        #self.scrollSurface.fill((0, 0, 0))
 
         pos = random.choice(self.free_locations)
         print("Loc Player:%s" % str(pos))
@@ -976,6 +990,9 @@ class Game:
             sc_x = self.screen.get_rect().center[0] - self.player.sprite.rect.center[0]
             sc_y = self.screen.get_rect().center[1] - self.player.sprite.rect.center[1]
             scrollSurfaceRect = Rect((sc_x,sc_y+self.gamebarSurface.get_rect().height),(self.scrollSurface.get_rect().width, self.scrollSurface.get_rect().height))
+
+            if (self.background_image!=None):
+                self.screen.blit(self.background_image,(0,0))
             self.screen.blit(self.scrollSurface, scrollSurfaceRect)
 
             # disegno la barra di informazioni di gioco
