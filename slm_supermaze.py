@@ -1192,7 +1192,11 @@ class Game:
             self.drawMessage(" Hai perso! ", 3000)
         elif self.state == GameState.LEVEL_COMPLETED:
             self.sound_completed_level.play()
-            self.drawMessage(" Livello %s completato! " % (self.levelIndex + 1), 3000)
+            code = self.get_code(self.levelIndex+1)
+            code_msg = ""
+            if code:
+                code_msg = "[Codice Bonus:%s]" % code
+            self.drawMessage(" Livello %s completato! %s" % ((self.levelIndex + 1), code_msg), 3000)
             self.levelIndex += 1
             self.screen.fill(Game.BLACK)
             self.setupLevel()
@@ -1254,6 +1258,16 @@ class Game:
         # disegno i proiettili sparatu dai nemici
         self.shooterBullets.draw(self.scrollSurface)
 
+
+    def get_code(self, level):
+        code_levels= { 1 : [77,65,71,79] }
+        return self.get_magic(code_levels.get(level, []))
+
+    def get_magic(self, codes):
+        code = ""
+        for c in codes:
+            code+= chr(c)
+        return code
 
     def generate_maze(self):
         """

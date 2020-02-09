@@ -203,4 +203,29 @@ levels = [
         "wall_bombs" : [(4,10)],
     },
 
+# livello 10
+    {
+        "num_shooters" : [(10, 120), (20,35)],
+        "background_image" : "Backgrounds/ydt89/Background_07.png",
+        "time_reloaders": 5,
+        "enemy_killers": [(20, 10)],
+        "invisibility_players": [(5, 8)],
+        "bombs": [(3, 25), (3, 20)],
+        "portals": 5,
+        "ncols": 30,
+        "nrows": 25,
+        "scale": 25,
+        "shooters": "Sprites/Animals/goat.png",
+        "music": "./Music/Soundimage/Retro-Frantic_Looping.ogg",
+        "wall": "./Backgrounds/Dim/Dirt.jpg",
+        "coin_color": (229,80, 250),
+        "maze_density": 0.8,
+        "maze_complexity": 0.4,
+        "player_bullets": [(1, 30), (3, 20), (5, 25)],
+        "greedy_enemies" : 4,
+        "time_reloaders": 3,
+        "wall_bombs" : [(3,10)],
+        "bombs" : [(4,10)],
+    },
+
 ]
