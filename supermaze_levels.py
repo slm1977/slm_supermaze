@@ -9,9 +9,9 @@ levels = [
 
 
     # livello per testare le funzionalità di gioco
-    {
-        "ncols" : 11,
-        "nrows" : 11,
+    {   "name"  : "Tramonto",
+        "ncols" : 15,
+        "nrows" : 15,
         "greedy_enemies" : 1,
         "player_bullets" : [(2,20)],
         "invisibility_players" : [(3,20)],
@@ -206,7 +206,8 @@ levels = [
 # livello 10
     {
         "num_shooters" : [(10, 120), (20,35)],
-        "background_image" : "Backgrounds/ydt89/Background_07.png",
+        "name" : "Spazio",
+        "background_image" : "Backgrounds/Space.png",
         "time_reloaders": 5,
         "enemy_killers": [(20, 10)],
         "invisibility_players": [(5, 8)],
@@ -216,8 +217,8 @@ levels = [
         "nrows": 25,
         "scale": 25,
         "shooters": "Sprites/Animals/goat.png",
-        "music": "./Music/Soundimage/Retro-Frantic_Looping.ogg",
-        "wall": "./Backgrounds/Dim/Dirt.jpg",
+        "music": "./Music/Soundimage/Surreal-Chase_Looping.ogg",
+        "wall": "./Backgrounds/Dim/GrassPurpleFlowers.jpg",
         "coin_color": (229,80, 250),
         "maze_density": 0.8,
         "maze_complexity": 0.4,
@@ -227,5 +228,33 @@ levels = [
         "wall_bombs" : [(3,10)],
         "bombs" : [(4,10)],
     },
+
+# livello 11
+    {
+
+"num_shooters" : [(20, 120), (20,35)],
+        "name" : "Inferno",
+        "background_image" : "Backgrounds/ydt89/Background_01.png",
+        "time_reloaders": 8,
+        "enemy_killers": [(30, 20)],
+        "invisibility_players": [(8, 20)],
+        "bombs": [(3, 25), (3, 20)],
+        "portals": 8,
+        "ncols": 60,
+        "nrows": 25,
+        "scale": 20,
+        "shooters": "Sprites/Animals/horse.png",
+        "music": "./Music/Soundimage/Nighttime-Escape.ogg",
+        "wall": "./Backgrounds/Dim/GrassPurpleFlowers.jpg",
+        "coin_color": (229,20, 25),
+        "maze_density": 0.8,
+        "maze_complexity": 0.8,
+        "player_bullets": [(4, 40), (3, 20), (5, 25)],
+        "greedy_enemies" : 6,
+        "time_reloaders": 6,
+        "wall_bombs" : [(6,10)],
+        "bombs" : [(4,15)],
+
+    }
 
 ]

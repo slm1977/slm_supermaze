@@ -150,6 +150,9 @@ class Game:
 
         level = levels[self.levelIndex]
 
+        # nome del livello
+        self.level_name = level.get("name", "Livello %s" % (self.levelIndex+1))
+
         # dimensione del labirinto (numero di righe e di colonne)
         self.nrows = level.get("nrows", 20)
         self.ncols = level.get("ncols", 20)
@@ -597,7 +600,7 @@ class Game:
 
         # pannello del livello
         font_level = pygame.font.Font(None, 40)
-        panel_level = font_level.render("Livello %s" % (self.levelIndex+1), True, Game.WHITE, Game.BLACK)
+        panel_level = font_level.render(self.level_name, True, Game.WHITE, Game.BLACK)
 
         # pannello del punteggio
         info_score = self.font_gamebar.render(" %s" % self.score, True, Game.WHITE, Game.BLACK)
@@ -1196,7 +1199,7 @@ class Game:
             code_msg = ""
             if code:
                 code_msg = "[Codice Bonus:%s]" % code
-            self.drawMessage(" Livello %s completato! %s" % ((self.levelIndex + 1), code_msg), 3000)
+            self.drawMessage(" %s completato! %s" % (self.level_name, code_msg), 3000)
             self.levelIndex += 1
             self.screen.fill(Game.BLACK)
             self.setupLevel()
@@ -1260,8 +1263,14 @@ class Game:
 
 
     def get_code(self, level):
-        code_levels= { 1 : [77,65,71,79] }
-        return self.get_magic(code_levels.get(level, []))
+        code_levels= { 11 : [100, 114, 97, 103, 111, 32, 115, 99, 105, 97, 110, 99, 97, 116, 111] }
+        if self.check_level(level):
+            return self.get_magic(code_levels.get(level, []))
+        else:
+            return ""
+
+    def check_level(self, level):
+        return self.nrows>=20 and self.ncols>=20 and len(self.numShooters)>0
 
     def get_magic(self, codes):
         code = ""
